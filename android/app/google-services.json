@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "351457303389",
+    "project_id": "instaplay-5f758",
+    "storage_bucket": "instaplay-5f758.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:351457303389:android:884e82425744bd3e5426b4",
+        "android_client_info": {
+          "package_name": "com.instaplays"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA76TLhCdr8cFSXBqp37hpT_ArjGsIr3A4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

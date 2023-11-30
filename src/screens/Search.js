@@ -14,6 +14,7 @@ import Header from '../components/Header';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import {api_key, baseUrl} from '../services/config';
+import LinearGradient from 'react-native-linear-gradient';
 
 const {height, width} = Dimensions.get('window');
 
@@ -43,15 +44,21 @@ const Search = ({navigation}) => {
   }, [movieName]);
 
   const searchResults = async querycheck => {
-    let movieResult = await axios.get(
-      `${baseUrl}/search/movie?api_key=${api_key}&language=en-US&query=${movieName}&page=${currentPage}&include_adult=false`,
-    );
-    querycheck
-      ? (setMovieList([...movieResult.data.results]), setCurrentPage(1))
-      : setMovieList([...movieList, ...movieResult.data.results]);
+    let timer;
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(async () => {
+      let movieResult = await axios.get(
+        `${baseUrl}/search/movie?api_key=${api_key}&language=en-US&query=${movieName}&page=${currentPage}&include_adult=false`,
+      );
+      querycheck
+        ? (setMovieList([...movieResult.data.results]), setCurrentPage(1))
+        : setMovieList([...movieList, ...movieResult.data.results]);
+    }, 300);
   };
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#0C111B'}}>
+    <LinearGradient colors={['#16222A', '#0C111B', '#3A6073']}>
       <Header />
       <View style={styles.mainBody}>
         <View
@@ -206,16 +213,22 @@ const Search = ({navigation}) => {
             style={{
               alignItems: 'center',
               justifyContent: 'center',
-              height: height/1.31,
+              height: height / 1.31,
             }}>
             <Ionicons name="search-outline" size={70} color="#4F6492" />
-            <Text style={{color: '#fff', fontSize: 19, fontWeight: 'bold',marginTop: 10}}>
+            <Text
+              style={{
+                color: '#fff',
+                fontSize: 19,
+                fontWeight: 'bold',
+                marginTop: 10,
+              }}>
               Search for movies
             </Text>
           </View>
         )}
       </View>
-    </SafeAreaView>
+    </LinearGradient>
   );
 };
 

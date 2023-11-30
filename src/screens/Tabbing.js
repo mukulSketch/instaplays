@@ -2,25 +2,36 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MovieList from './MovieList';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Octicons from 'react-native-vector-icons/Octicons';
+import Foundation from 'react-native-vector-icons/Foundation';
 import Search from './Search';
 import {Text} from 'react-native';
 import Profile from './Profile';
+import Discover from '../components/category/Discover';
 
 const Tab = createBottomTabNavigator();
 
 function Tabbing() {
-
   return (
     <Tab.Navigator
       initialRouteName="MovieList"
-      backBehavior='firstRoute'
+      backBehavior="firstRoute"
       screenOptions={{
         headerShown: false,
-        tabBarStyle: {backgroundColor: '#26476F', height: 60},
+        tabBarStyle: {
+          backgroundColor: '#262626',
+          height: 55,
+          borderColor: '#262626',
+        },
         tabBarLabel: ({children, focused}) => {
           return (
             <Text
-              style={{color: focused ? '#fff' : '#89ACD7', paddingBottom: 4}}>
+              style={{
+                color: focused ? '#fff' : 'grey',
+                paddingBottom: 4,
+                fontWeight: 'bold',
+                fontSize: 13,
+              }}>
               {children}
             </Text>
           );
@@ -28,16 +39,15 @@ function Tabbing() {
         tabBarLabelStyle: {
           color: '#89ACD7',
           fontSize: 13,
-          paddingBottom: 4,
         },
       }}>
       <Tab.Screen
         options={{
           tabBarIcon: ({focused}) =>
             focused ? (
-              <Ionicons name="home" size={25} color={'#fff'} />
+              <Foundation name="home" size={24} color={'#fff'} />
             ) : (
-              <Ionicons name="home-outline" size={25} color={'#89ACD7'} />
+              <Octicons name="home" size={23} color={'grey'} />
             ),
         }}
         name="Home"
@@ -47,9 +57,21 @@ function Tabbing() {
         options={{
           tabBarIcon: ({focused}) =>
             focused ? (
-              <Ionicons name="search" size={25} color={'#fff'} />
+              <Ionicons name="trending-up-sharp" size={26} color={'#fff'} />
             ) : (
-              <Ionicons name="search" size={25} color={'#89ACD7'} />
+              <Ionicons name="trending-up-sharp" size={25} color={'grey'} />
+            ),
+        }}
+        name="Trending"
+        component={Discover}
+      />
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({focused}) =>
+            focused ? (
+              <Ionicons name="search" size={23} color={'#fff'} />
+            ) : (
+              <Ionicons name="search" size={23} color={'grey'} />
             ),
         }}
         name="Search"
@@ -61,7 +83,7 @@ function Tabbing() {
             focused ? (
               <FontAwesome name="user" size={23} color={'#fff'} />
             ) : (
-              <FontAwesome name="user-o" size={23} color={'#89ACD7'} />
+              <FontAwesome name="user-o" size={23} color={'grey'} />
             ),
         }}
         name="Profile"

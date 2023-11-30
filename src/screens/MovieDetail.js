@@ -16,7 +16,9 @@ const {height, width} = Dimensions.get('window');
 
 const MovieDetail = ({route}) => {
   const [movieDetails, setMovieDetails] = useState([]);
-  const {movieId} = route.params;
+  const {movieId, tv} = route.params;
+
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   useEffect(() => {
     const ac = new AbortController();
@@ -29,10 +31,15 @@ const MovieDetail = ({route}) => {
 
   const getMovieDetail = async () => {
     let details = await axios.get(
-      `${baseUrl}/movie/${movieId}?api_key=${api_key}&language=en-US`,
+      `${baseUrl}/${
+        tv ? 'tv' : 'movie'
+      }/${movieId}?api_key=${api_key}&language=en-US`,
     );
     setMovieDetails([details.data]);
   };
+
+  const videoStyle = isFullScreen ? styles.fullScreenVideo : styles.video;
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#0C111B'}}>
       <Header />
@@ -53,7 +60,7 @@ const MovieDetail = ({route}) => {
             </View>
             <View style={styles.mainBody}>
               <Text style={{color: '#fff', fontSize: 19, fontWeight: 'bold'}}>
-                {res.original_title}
+                {tv ? res.original_name : res.original_title}
               </Text>
               <Text style={{color: '#fff', fontSize: 18, marginTop: 6}}>
                 Rating: {parseFloat(res.vote_average.toFixed(2)) / 2}/5
@@ -84,7 +91,7 @@ const MovieDetail = ({route}) => {
                 style={{
                   flexDirection: 'row',
                   marginTop: 17,
-                  marginBottom: 20
+                  marginBottom: 20,
                   // alignItems: 'center',
                 }}>
                 <Text style={{color: '#fff', fontSize: 18, width: '50%'}}>
@@ -118,6 +125,13 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
     marginTop: height / 30,
+  },
+  video: {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').width * 0.5625, // 16:9 aspect ratio
+  },
+  fullScreenVideo: {
+    ...StyleSheet.absoluteFillObject,
   },
 });
 
