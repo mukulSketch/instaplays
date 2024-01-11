@@ -1,7 +1,18 @@
-import React from 'react';
+import React, {FC} from 'react';
 import {Text, View, Pressable} from 'react-native';
 
-const FilterButton = ({ButtonText, data, setCountry, country}) => {
+interface FilterButtonProps {
+  ButtonText: String;
+  data: Array<{country: String}>;
+  setCountry: (country: String) => void;
+  country: string;
+}
+const FilterButton: FC<FilterButtonProps> = ({
+  ButtonText,
+  data,
+  setCountry,
+  country,
+}) => {
   return (
     <Pressable
       onPress={() => {

@@ -10,6 +10,7 @@ import {PermissionsAndroid, Pressable, Text, View} from 'react-native';
 import BlogHome from './src/screens/BlogHome';
 import {useDispatch, useSelector} from 'react-redux';
 import {appStatus} from './src/redux-toolkit/slice';
+import Ani from './src/screens/ani';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -24,7 +25,7 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <View
+      {/* <View
         style={{
           padding: 12,
           backgroundColor: '#161A30',
@@ -58,8 +59,8 @@ const App = () => {
             {selector.movieApp ? 'Blog app' : 'movie app'}
           </Text>
         </Pressable>
-      </View>
-      <Stack.Navigator initialRouteName="BlogHome">
+      </View> */}
+      <Stack.Navigator initialRouteName="ani">
         {selector.movieApp ? (
           <Stack.Screen
             name="Tab"
@@ -73,6 +74,11 @@ const App = () => {
             options={{headerShown: false}}
           />
         )}
+        <Stack.Screen
+          name="ani"
+          component={Ani}
+          options={{headerShown: false}}
+        />
 
         <Stack.Screen
           name="Signin"
