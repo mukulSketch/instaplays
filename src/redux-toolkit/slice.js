@@ -115,7 +115,7 @@ let initialState = {
         country: 'India',
       },
     ],
-    movieApp: false,
+    movieApp: true,
   },
 };
 

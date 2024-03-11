@@ -1,11 +1,25 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {Dimensions, Image, Text, TouchableOpacity} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {api_key, baseUrl} from '../../services/config';
 
 const Banner = () => {
   const navigation = useNavigation();
   const {height, width} = Dimensions.get('window');
+  const [movieData, setMovieData] = useState([]);
+
+  useEffect(() => {
+    dataFetching();
+  }, []);
+
+  async function dataFetching() {
+    var Data = await axios.get(
+      `${baseUrl}/trending/all/week?api_key=${api_key}&page=1`,
+    );
+    setMovieData(Data?.data?.results[0]);
+  }
 
   return (
     <TouchableOpacity
@@ -28,7 +42,7 @@ const Banner = () => {
           // width: width / 1.3,
         }}
         source={{
-          uri: 'https://image.tmdb.org/t/p/original/NNxYkU70HPurnNCSiCjYAmacwm.jpg',
+          uri: `https://image.tmdb.org/t/p/original${movieData?.poster_path}`,
         }}
       />
       <LinearGradient
@@ -46,7 +60,7 @@ const Banner = () => {
             textAlign: 'center',
             fontFamily: 'Roboto-Bold',
           }}>
-          Mission: Impossible – Dead Reckoning Part One
+          {movieData?.original_title}
         </Text>
       </LinearGradient>
     </TouchableOpacity>

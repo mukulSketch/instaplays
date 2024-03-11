@@ -74,7 +74,7 @@ const App = () => {
             options={{headerShown: false}}
           />
         )}
-        <Stack.Screen
+        {/* <Stack.Screen
           name="ani"
           component={Ani}
           options={{headerShown: false}}
@@ -95,7 +95,7 @@ const App = () => {
           name="Profile"
           component={Profile}
           options={{headerShown: false}}
-        />
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );
